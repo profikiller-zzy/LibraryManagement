@@ -2,6 +2,7 @@ package main
 
 import (
 	"LibraryManagement/core"
+	"LibraryManagement/flag"
 	"LibraryManagement/global"
 )
 
@@ -12,5 +13,7 @@ func main() {
 	global.Log = core.InitLogger()
 	// 连接mysql数据库，并将数据库写入全局变量
 	global.Db = core.InitGorm()
-	global.Log.Info("你好！")
+
+	// 捕获命令行参数，并对不同命令行参数的值来执行不同的操作
+	flag.Parse()
 }
