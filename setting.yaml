@@ -1,0 +1,18 @@
+mysql:
+  host: localhost
+  port: 3306
+  db: library_management
+  user: root
+  password: 01312934a
+  log_level: debug
+  config: "charset=utf8&parseTime=True&loc=Local"
+logger:
+  level: info
+  prefix: '[gin_vue_blog]'
+  director: log
+  show_line: true
+  log_in_console: true
+system:
+  host: 127.0.0.1
+  port: 8080
+  env: debug
