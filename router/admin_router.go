@@ -15,4 +15,5 @@ func (r RGroup) AdminRouter() {
 	//r.POST("/admin_update/", middleware.JwtAdmin(), AdminApiApp.UpdateAdminView)
 	r.POST("/admin_login/", AdminApiApp.AdminLogin)
 	r.POST("/admin_binding_email/", middleware.JwtAdmin(), AdminApiApp.AdminEmailBindingView)
+	r.POST("/admin_update_pwd/", middleware.JwtAdmin(), AdminApiApp.UpdateAdminView)
 }
