@@ -25,3 +25,11 @@ redis:
   port: 6379
   password: 01312934a
   poolSize: 100
+email:
+  host: smtp.qq.com
+  port: 465
+  user: 3548361574@qq.com
+  password: yttwuqhzhnnkdadh
+  default_form_email: profikiller
+  use_ssl: true
+  user_tsl: false

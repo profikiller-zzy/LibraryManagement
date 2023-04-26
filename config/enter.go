@@ -7,4 +7,5 @@ type Config struct {
 	System System `yaml:"system"`
 	Jwt    Jwt    `yaml:"jwt"`
 	Redis  Redis  `yaml:"redis"`
+	Email  Email  `yaml:"email"`
 }

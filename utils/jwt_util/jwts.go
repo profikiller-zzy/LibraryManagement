@@ -50,6 +50,7 @@ func GenerateTokenToAdmin(payLoad JwtAdminPayLoad) (string, error) {
 			Issuer: "图书馆借阅管理系统",
 		},
 	}
+	global.Log.Info(expireTime)
 	// NewWithClaims根据Claims结构体创建Token示例
 	reqClaim := jwt.NewWithClaims(jwt.SigningMethodHS256, Claim)
 	// SignedString 方法根据传入的空接口类型参数key，返回完整的签名令牌。
