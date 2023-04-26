@@ -18,7 +18,7 @@ func JwtAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		claims, err := jwt_util.VerifyToken(tokenString)
+		claims, err := jwt_util.VerifyTokenForUser(tokenString)
 		if err != nil {
 			response.FailWithMessage("非法token", c)
 			c.Abort()
@@ -43,7 +43,7 @@ func JwtAdmin() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		claims, err := jwt_util.VerifyToken(tokenString)
+		claims, err := jwt_util.VerifyTokenForAdmin(tokenString)
 		if err != nil {
 			response.FailWithMessage("非法token", c)
 			c.Abort()

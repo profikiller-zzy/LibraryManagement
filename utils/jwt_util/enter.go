@@ -4,14 +4,23 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-type JwtPayLoad struct {
+type JwtUserPayLoad struct {
 	UserID   uint   `json:"user_id"`
 	NickName string `json:"nick_name"`
 }
 
+type JwtAdminPayLoad struct {
+	AdminID uint `json:"admin_id"`
+}
+
 var JwtSecretKey []byte
 
-type CustomClaims struct {
-	JwtPayLoad
+type CustomUserClaims struct {
+	JwtUserPayLoad
+	jwt.StandardClaims
+}
+
+type CustomAdminClaims struct {
+	JwtAdminPayLoad
 	jwt.StandardClaims
 }
