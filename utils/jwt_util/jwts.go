@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// GenerateTokenToUser 根据用户ID和用户昵称为用户产生token
-func GenerateTokenToUser(payLoad JwtUserPayLoad) (string, error) {
+// GenerateTokenForUser 根据用户ID和用户昵称为用户产生token
+func GenerateTokenForUser(payLoad JwtUserPayLoad) (string, error) {
 	JwtSecretKey = []byte(global.Config.Jwt.SecretKey)
 	// Token的有效时间，默认为两个小时
 	expireTime := time.Now().Add(time.Hour * time.Duration(global.Config.Jwt.ExpireTime))
@@ -34,8 +34,8 @@ func GenerateTokenToUser(payLoad JwtUserPayLoad) (string, error) {
 	return reqToken, nil
 }
 
-// GenerateTokenToAdmin 根据管理员ID和为管理员产生token
-func GenerateTokenToAdmin(payLoad JwtAdminPayLoad) (string, error) {
+// GenerateTokenForAdmin 根据管理员ID和为管理员产生token
+func GenerateTokenForAdmin(payLoad JwtAdminPayLoad) (string, error) {
 	JwtSecretKey = []byte(global.Config.Jwt.SecretKey)
 	// Token的有效时间，默认为两个小时
 	expireTime := time.Now().Add(time.Hour * time.Duration(global.Config.Jwt.ExpireTime))

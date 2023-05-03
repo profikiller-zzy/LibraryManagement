@@ -5,8 +5,7 @@ import (
 )
 
 type JwtUserPayLoad struct {
-	UserID   uint   `json:"user_id"`
-	NickName string `json:"nick_name"`
+	UserID uint `json:"user_id"`
 }
 
 type JwtAdminPayLoad struct {

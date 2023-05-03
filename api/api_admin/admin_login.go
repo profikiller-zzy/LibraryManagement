@@ -41,7 +41,7 @@ func (AdminApi) AdminLogin(c *gin.Context) {
 	}
 
 	// 验证成功，生成token
-	tokenString, err := jwt_util.GenerateTokenToAdmin(jwt_util.JwtAdminPayLoad{
+	tokenString, err := jwt_util.GenerateTokenForAdmin(jwt_util.JwtAdminPayLoad{
 		AdminID: adminModel.ID,
 	})
 	if err != nil {
