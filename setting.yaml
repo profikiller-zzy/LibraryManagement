@@ -15,7 +15,7 @@ logger:
 system:
   host: 127.0.0.1
   port: 8080
-  env: debug
+  env: release
 jwt:
   secret_key: 1hwrmabS45PaYmDb
   expire_time: 2

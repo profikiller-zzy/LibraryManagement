@@ -25,5 +25,7 @@ func InitRouter() *gin.Engine {
 
 	apiRouterGroupApp.AdminRouter()
 	apiRouterGroupApp.UserRouter()
+	apiRouterGroupApp.BookRouter()
+	apiRouterGroupApp.BorrowRouter()
 	return router
 }

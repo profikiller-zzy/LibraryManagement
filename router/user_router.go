@@ -16,4 +16,5 @@ func (r RGroup) UserRouter() {
 	r.POST("/user_register/", UserApiApp.UserRegisterView)
 	r.PUT("/user_update/", middleware.JwtAuth(), UserApiApp.UserUpdateView)
 	r.PUT("/user_update_password/", middleware.JwtAuth(), UserApiApp.UserUpdatePasswordView)
+	r.GET("/user_borrow_record_list/", middleware.JwtAuth(), UserApiApp.BorrowRecordList)
 }
