@@ -10,8 +10,8 @@ import (
 )
 
 type UpdatePwdRequest struct {
-	OldPwd string `json:"old_pwd" binding:"required" msg:"请输入新密码"` // 旧密码
-	Pwd    string `json:"pwd" binding:"required" msg:"请输入旧密码"`     // 新密码
+	OldPwd string `json:"old_pwd" binding:"required" msg:"请输入旧密码"` // 旧密码
+	Pwd    string `json:"pwd" binding:"required" msg:"请输入新密码"`     // 新密码
 }
 
 // UpdateAdminPwdView 管理员修改密码
