@@ -5,7 +5,6 @@ import (
 	"LibraryManagement/model"
 	"LibraryManagement/model/custom_type"
 	"LibraryManagement/model/response"
-	"LibraryManagement/service/book_service"
 	"LibraryManagement/utils/jwt_util"
 	"database/sql"
 	"fmt"
@@ -14,7 +13,8 @@ import (
 	"time"
 )
 
-func (BorrowApi) BookReturnView(c *gin.Context) {
+// BookRenewView 图书续借
+func (BorrowApi) BookRenewView(c *gin.Context) {
 	_bookID := c.Param("book_id")
 	_claims, _ := c.Get("claims")
 	claims := _claims.(*jwt_util.CustomUserClaims)
@@ -29,7 +29,7 @@ func (BorrowApi) BookReturnView(c *gin.Context) {
 
 	// 查询该书是否被借阅
 	if bookModel.Status == custom_type.Status(1) {
-		response.FailWithMessage("该书籍已经被归还，请勿重复操作", c)
+		response.FailWithMessage("该书籍已经被归还，不可续借", c)
 		return
 	}
 
@@ -52,19 +52,8 @@ func (BorrowApi) BookReturnView(c *gin.Context) {
 		tx.Rollback() // 回滚事务
 		return
 	}
-	err = tx.Model(&borrowRecord).Update("return_at", sql.NullTime{
-		Time:  time.Now(),
-		Valid: true,
-	}).Error
-	if err != nil {
-		global.Log.Error(err.Error())
-		response.FailWithMessage(err.Error(), c)
-		tx.Rollback() // 回滚事务
-		return
-	}
-
-	// 更新书籍状态
-	err = tx.Model(&bookModel).Update("status", custom_type.Free).Error
+	expireAt := borrowRecord.ExpireAt.Add(7 * 24 * time.Hour)
+	err = tx.Model(&borrowRecord).Update("expire_at", expireAt).Error
 	if err != nil {
 		global.Log.Error(err.Error())
 		response.FailWithMessage(err.Error(), c)
@@ -76,10 +65,5 @@ func (BorrowApi) BookReturnView(c *gin.Context) {
 	tx.Commit()
 
 	// 返回成功响应
-	// 判断是否超时
-	daysLate := book_service.ReturnTimeOut(borrowRecord.ExpireAt, borrowRecord.ReturnAt.Time)
-	if daysLate > 0 { // 超时了
-		response.OKWithMessage(fmt.Sprintf("《%s》归还成功，本次归还超时，超时 %d 天，需要支付 %d 元", bookModel.BookName, daysLate*2), c)
-	}
-	response.OKWithMessage(fmt.Sprintf("《%s》归还成功", bookModel.BookName), c)
+	response.OKWithMessage(fmt.Sprintf("《%s》续借成功，到期时间延后7天", bookModel.BookName), c)
 }

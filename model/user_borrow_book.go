@@ -14,4 +14,5 @@ type UserBorrowBook struct {
 	Book      BookModel    // 借阅的图书
 	CreatedAt time.Time    `json:"created_at"`                    // 借书时间
 	ReturnAt  sql.NullTime `gorm:"default:null" json:"return_at"` // 还书时间，如果未换则为空
+	ExpireAt  time.Time    `json:"expire_at"`                     // 到期时间
 }

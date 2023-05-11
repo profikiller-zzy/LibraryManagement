@@ -46,6 +46,7 @@ func (BorrowApi) BookBorrowView(c *gin.Context) {
 		BookID:    uint(bookID),
 		CreatedAt: time.Now(),
 		ReturnAt:  sql.NullTime{},
+		ExpireAt:  time.Now().Add(7 * 24 * time.Hour), // 默认到期时间为7天
 	}).Error
 	if err != nil {
 		global.Log.Error(err.Error())
