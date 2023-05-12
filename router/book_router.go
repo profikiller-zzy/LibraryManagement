@@ -7,6 +7,7 @@ import (
 
 func (r RGroup) BookRouter() {
 	var BookApiApp api_book.BookApi
+	r.GET("/book_list/", BookApiApp.BookListView)
 	r.PUT("/book_create/", middleware.JwtAdmin(), BookApiApp.BookCreateView)
 	r.POST("/book_update/:id", middleware.JwtAdmin(), BookApiApp.BookUpdateView)
 	r.DELETE("/book_remove/", middleware.JwtAdmin(), BookApiApp.AdRemoveView)

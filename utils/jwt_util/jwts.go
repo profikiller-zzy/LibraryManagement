@@ -16,8 +16,6 @@ func GenerateTokenForUser(payLoad JwtUserPayLoad) (string, error) {
 	Claim := CustomUserClaims{
 		JwtUserPayLoad: payLoad,
 		StandardClaims: jwt.StandardClaims{
-			// 生效时间
-			IssuedAt: time.Now().Unix(),
 			// 过期时间
 			ExpiresAt: expireTime.Unix(),
 			// Issuer表示Token的签发者

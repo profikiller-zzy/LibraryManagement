@@ -2,6 +2,7 @@ package router
 
 import (
 	"LibraryManagement/global"
+	middle "LibraryManagement/middleware/cros"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,7 @@ type RGroup struct {
 func InitRouter() *gin.Engine {
 	gin.SetMode(global.Config.System.Env)
 	router := gin.Default()
+	router.Use(middle.Cors())
 	err := router.SetTrustedProxies([]string{"127.0.0.1"})
 	if err != nil {
 		global.Log.Warnln(err.Error())

@@ -43,7 +43,8 @@ func (UserApi) UserLoginView(c *gin.Context) {
 
 	// 验证成功，生成Token
 	tokenString, err := jwt_util.GenerateTokenForUser(jwt_util.JwtUserPayLoad{
-		UserID: userModel.ID,
+		UserID:   userModel.ID,
+		NickName: userModel.NickName,
 	})
 	if err != nil {
 		global.Log.Warnln(err.Error())
