@@ -37,7 +37,7 @@ func JwtAuth() gin.HandlerFunc {
 
 func JwtAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		tokenString := c.Request.Header.Get("token")
+		tokenString := c.Request.Header.Get("admin_token")
 		if tokenString == "" {
 			response.FailWithMessage("未携带token", c)
 			c.Abort()

@@ -11,7 +11,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserUpdateView struct {
+type UserUpdateRequest struct {
+	NickName        string `json:"nick_name"`        // 昵称
+	TelephoneNumber string `json:"telephone_number"` // 读者的电话号码
+	Gender          string `json:"gender"`           // 性别
+	Age             int    `json:"age"`              // 读者年龄
+}
+
+type UserUpdateInfo struct {
 	NickName        string             `json:"nick_name"`        // 昵称
 	TelephoneNumber string             `json:"telephone_number"` // 读者的电话号码
 	Gender          custom_type.Gender `json:"gender"`           // 性别
@@ -19,7 +26,7 @@ type UserUpdateView struct {
 }
 
 func (UserApi) UserUpdateView(c *gin.Context) {
-	var upReq UserUpdateView
+	var upReq UserUpdateRequest
 	err := c.ShouldBindJSON(&upReq)
 	// 判断参数是否合法
 	if err != nil {
@@ -38,7 +45,21 @@ func (UserApi) UserUpdateView(c *gin.Context) {
 		return
 	}
 
-	upReqMap := structs.Map(&upReq)
+	upInfo := UserUpdateInfo{
+		NickName:        upReq.NickName,
+		TelephoneNumber: upReq.TelephoneNumber,
+		Age:             upReq.Age,
+	}
+	switch upReq.Gender {
+	case "男性":
+		upInfo.Gender = custom_type.Male
+	case "女性":
+		upInfo.Gender = custom_type.Female
+	default:
+		upInfo.Gender = custom_type.Male
+	}
+
+	upReqMap := structs.Map(&upInfo)
 	err = global.Db.Model(&userModel).Updates(upReqMap).Error
 	if err != nil {
 		global.Log.Error(err.Error())

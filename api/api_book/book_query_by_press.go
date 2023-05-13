@@ -34,6 +34,6 @@ func (BookApi) BookQueryByPress(c *gin.Context) {
 		response.OKWithMessage("没有相关的书籍", c)
 		return
 	}
-	response.OKWithData(bookList, c)
+	response.OKWithPagingData(bookList, count, c)
 	return
 }

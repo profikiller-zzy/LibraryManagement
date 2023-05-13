@@ -3,6 +3,7 @@ package api_book
 import (
 	"LibraryManagement/global"
 	"LibraryManagement/model"
+	"LibraryManagement/model/custom_type"
 	"LibraryManagement/model/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,13 @@ func (BookApi) AdRemoveView(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(fmt.Sprintf("参数绑定失败,报错信息：%s", err.Error()), c)
 		return
+	}
+
+	for _, value := range bookList {
+		if value.Status == custom_type.OnLoan { // 这本书被借走了，不能删
+			response.FailWithMessage(fmt.Sprintf("ID为%d的书籍处于借阅状态，不能删除！", value.ID), c)
+			return
+		}
 	}
 
 	count = global.Db.Find(&bookList, rmReq.IDList).RowsAffected
